@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping(path="motorcycle")
-public abstract class MotorcycleController {
+public class MotorcycleController {
     @Autowired
     private MotorcycleService motorcycleService;
 
@@ -58,12 +58,9 @@ public abstract class MotorcycleController {
     }
 
     @PostMapping
-    public @ResponseBody
-    ResponseEntity<MotorcycleResponseDTO> getsaveMotorcycle(@RequestBody Motorcycle motorcycle)
+    public Motorcycle saveMotorcycle (@RequestBody Motorcycle motorcycle)
     {
-       return new ResponseEntity<MotorcycleResponseDTO>(
-               new MotorcycleResponseDTO("success", motorcycleService.getMotorcycleList(),null
-               ),HttpStatus.OK
-       );
+        motorcycleService.addMotorcycle(motorcycle);
+        return motorcycle;
     }
 }
